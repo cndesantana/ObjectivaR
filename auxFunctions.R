@@ -24,10 +24,30 @@ getEdges<-function(dat,allnodes){
 getAPIKey <- function(authorizationFile){
    auth<-read.csv(authorizationFile,sep=";",header=FALSE)
    APIKey<-as.character(auth$V2[1]);
+   return(APIKey)
 }
 
 getAPISecret <- function(authorizationFile){
    auth<-read.csv(authorizationFile,sep=";",header=FALSE)
-   APIKey<-as.character(auth$V2[2]);
+   APISecret<-as.character(auth$V2[2]);
+   return(APISecret)
 }
 
+getAccessToken <- function(authorizationFile){
+   auth<-read.csv(authorizationFile,sep=";",header=FALSE)
+   token<-as.character(auth$V2[3]);
+   return(token)
+}
+
+getAccessSecret <- function(authorizationFile){
+   auth<-read.csv(authorizationFile,sep=";",header=FALSE)
+   secret<-as.character(auth$V2[4]);
+   return(secret)
+}
+
+
+### Sentimental analysis functions
+
+install.packages("mscstexta4r")
+library("mscstexta4r")
+textaInit()

@@ -20,6 +20,8 @@ authURL <- "https://api.twitter.com/oauth/authorize"
 
 apiKey <-  getAPIKey("../authorization.txt")
 apiSecret <- getAPISecret("../authorization.txt")
+accessToken <- getAccessToken("../authorization.txt")
+accessSecret <- getAccessSecret("../authorization.txt")
 
 twitCred <- OAuthFactory$new(
    consumerKey = apiKey, 
@@ -29,8 +31,5 @@ twitCred <- OAuthFactory$new(
    authURL = authURL
 )
 
-twitCred$handshake(
-   cainfo = system.file("CurlSSL", "cacert.pem", package = "RCurl")
-)
+setup_twitter_oauth(apiKey, apiSecret, tokenKey, tokenSecret)
 
-registerTwitterOAuth(twitCred)
