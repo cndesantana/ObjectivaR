@@ -1,11 +1,17 @@
 source("textPreproc.R")
 source("sentimentAnalysis.R")
+source("auxFunctions.R")
+source("twitterMining.R")
 library("wordcloud")
+
+#### Creating connection with Twitter App
+
+connectTwitterApp()
 
 #### Harvest Tweets
 
 textToSearch <- "Bahia"
-noOfTweets <- 5000
+noOfTweets <- 10000
 
 # harvest some tweets
 some_tweets = searchTwitter(textToSearch, n=noOfTweets, lang='pt-br')

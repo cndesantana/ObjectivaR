@@ -8,28 +8,21 @@ library("stringr")
 library("ROAuth")
 library("twitteR")
 library("ROAuth")
-source("./auxFunctions.R")
+#library("mscstexta4r")
 
-
-# Set SSL certs globally
-options(RCurlOptions = list(cainfo = system.file("CurlSSL", "cacert.pem", package = "RCurl")))
-
-reqURL <- "https://api.twitter.com/oauth/request_token"
-accessURL <- "https://api.twitter.com/oauth/access_token"
-authURL <- "https://api.twitter.com/oauth/authorize"
-
-apiKey <-  getAPIKey("../authorization.txt")
-apiSecret <- getAPISecret("../authorization.txt")
-accessToken <- getAccessToken("../authorization.txt")
-accessSecret <- getAccessSecret("../authorization.txt")
-
-twitCred <- OAuthFactory$new(
-   consumerKey = apiKey, 
-   consumerSecret = apiSecret,
-   requestURL = reqURL,
-   accessURL = accessURL, 
-   authURL = authURL
-)
-
-setup_twitter_oauth(apiKey, apiSecret, tokenKey, tokenSecret)
-
+connectTwitterApp<-function(){
+   # Set SSL certs globally
+   options(RCurlOptions = list(cainfo = system.file("CurlSSL", "cacert.pem", package = "RCurl")))
+   
+   reqURL <- "https://api.twitter.com/oauth/request_token"
+   accessURL <- "https://api.twitter.com/oauth/access_token"
+   authURL <- "https://api.twitter.com/oauth/authorize"
+   
+   apiKey <-  getAPIKey("../authorization.txt")
+   apiSecret <- getAPISecret("../authorization.txt")
+   accessToken <- getAccessToken("../authorization.txt")
+   accessSecret <- getAccessSecret("../authorization.txt")
+   
+   setup_twitter_oauth(apiKey, apiSecret, accessToken, accessSecret)
+   
+}

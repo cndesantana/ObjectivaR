@@ -48,6 +48,5 @@ getAccessSecret <- function(authorizationFile){
 
 ### Sentimental analysis functions
 
-install.packages("mscstexta4r")
-library("mscstexta4r")
-textaInit()
+
+
