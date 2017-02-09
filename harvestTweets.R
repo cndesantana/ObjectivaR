@@ -1,3 +1,5 @@
+setwd("/home/cdesantana/TwitterAnalytics/ObjectivaR")
+
 source("textPreproc.R")
 source("sentimentAnalysis.R")
 source("auxFunctions.R")
@@ -14,10 +16,10 @@ connectTwitterApp()
 
 #### Harvest Tweets
 
-textToSearch <- "Bahia"
+textToSearch <- "@costa_rui"
 xlimits<-c(-46.600952, -37.3409874)
 ylimits<-c(-18.328010, -8.5409874)
-noOfTweets <- 10000
+noOfTweets <- 1000
 
 # harvest some tweets
 some_tweets = searchTwitter(textToSearch, n=noOfTweets, lang='pt-br')
@@ -48,11 +50,17 @@ some_txt <- textPreprocessing(some_txt)
 ##### playing with word clouds
 ##R package for text mining --- tm
 library(tm)
-cname <- "/home/cdesantana/TwitterAnalytics/ObjectivaR/texts"
+library(wordcloud)
+cname <- "/home/cdesantana/TwitterAnalytics/ObjectivaR/texts_rui"
 docs <- Corpus(DirSource(cname)) 
+docs <- tm_map(docs, removeWords, c("httpstcoxeoz","pra","como","dos","uma","por","das","httpstcohinafl","costarui","que","para"))
 docs <- tm_map(docs, removePunctuation)   
 docs <- tm_map(docs, removeNumbers)   
 docs <- tm_map(docs, tolower)      
 docs <- tm_map(docs, PlainTextDocument)   
-dtm <- TermDocumentMatrix(docs)   
-freq <- colSums(as.matrix(dtm))
+tdm <- TermDocumentMatrix(docs)   
+m1 <- as.matrix(tdm)
+freq <- colSums(as.matrix(tdm))
+v1 <- sort(rowSums(m1), decreasing = TRUE)
+d1 <- data.frame(word = names(v1), freq = v1)
+wordcloud(d1$word, d1$freq, col = brewer.pal(8, "Set2"), min.freq = 50)
